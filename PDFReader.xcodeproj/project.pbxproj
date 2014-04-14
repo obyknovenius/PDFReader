@@ -13,15 +13,24 @@
 		B71D52AA18CF0C2200C9C64A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B71D52A818CF0C2200C9C64A /* InfoPlist.strings */; };
 		B71D52AC18CF0C2200C9C64A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B71D52AB18CF0C2200C9C64A /* main.m */; };
 		B71D52B018CF0C2200C9C64A /* ReaderAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B71D52AF18CF0C2200C9C64A /* ReaderAppDelegate.m */; };
-		B71D52B318CF0C2200C9C64A /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71D52B118CF0C2200C9C64A /* Main_iPhone.storyboard */; };
-		B71D52B618CF0C2200C9C64A /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71D52B418CF0C2200C9C64A /* Main_iPad.storyboard */; };
-		B71D52B918CF0C2200C9C64A /* ReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B71D52B818CF0C2200C9C64A /* ReaderViewController.m */; };
 		B71D52BB18CF0C2200C9C64A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B71D52BA18CF0C2200C9C64A /* Images.xcassets */; };
 		B71D52C218CF0C2200C9C64A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71D52C118CF0C2200C9C64A /* XCTest.framework */; };
 		B71D52C318CF0C2200C9C64A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71D529F18CF0C2200C9C64A /* Foundation.framework */; };
 		B71D52C418CF0C2200C9C64A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71D52A318CF0C2200C9C64A /* UIKit.framework */; };
 		B71D52CC18CF0C2200C9C64A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B71D52CA18CF0C2200C9C64A /* InfoPlist.strings */; };
 		B71D52CE18CF0C2200C9C64A /* PDFReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B71D52CD18CF0C2200C9C64A /* PDFReaderTests.m */; };
+		B71D52D818CF0C4600C9C64A /* leaseagreement.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B71D52D718CF0C4600C9C64A /* leaseagreement.pdf */; };
+		B78F382818FA801400994529 /* ReaderShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = B78F382718FA801400994529 /* ReaderShadowView.m */; };
+		B78F383C18FC45F300994529 /* Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B78F383318FC45F300994529 /* Annotation.m */; };
+		B78F383D18FC45F300994529 /* AnnotationStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B78F383518FC45F300994529 /* AnnotationStore.m */; };
+		B78F383E18FC45F300994529 /* ReaderAnnotatedPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B78F383718FC45F300994529 /* ReaderAnnotatedPageView.m */; };
+		B78F383F18FC45F300994529 /* ReaderAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B78F383918FC45F300994529 /* ReaderAnnotationView.m */; };
+		B78F384018FC45F300994529 /* ReaderScratchPadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B78F383B18FC45F300994529 /* ReaderScratchPadView.m */; };
+		B7CA795F18EAAD6200FADC16 /* ReaderContentTile.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CA795E18EAAD6200FADC16 /* ReaderContentTile.m */; };
+		B7CA796218EAADFD00FADC16 /* ReaderPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CA796118EAADFD00FADC16 /* ReaderPageView.m */; };
+		B7CA797618EAE83800FADC16 /* ReaderDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CA797518EAE83800FADC16 /* ReaderDocument.m */; };
+		B7CA797918EAED0E00FADC16 /* ReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CA797818EAED0E00FADC16 /* ReaderView.m */; };
+		B7CA798418F2AA0D00FADC16 /* ReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CA798318F2AA0D00FADC16 /* ReaderViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,16 +54,35 @@
 		B71D52AD18CF0C2200C9C64A /* PDFReader-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PDFReader-Prefix.pch"; sourceTree = "<group>"; };
 		B71D52AE18CF0C2200C9C64A /* ReaderAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReaderAppDelegate.h; sourceTree = "<group>"; };
 		B71D52AF18CF0C2200C9C64A /* ReaderAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReaderAppDelegate.m; sourceTree = "<group>"; };
-		B71D52B218CF0C2200C9C64A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		B71D52B518CF0C2200C9C64A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		B71D52B718CF0C2200C9C64A /* ReaderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReaderViewController.h; sourceTree = "<group>"; };
-		B71D52B818CF0C2200C9C64A /* ReaderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReaderViewController.m; sourceTree = "<group>"; };
 		B71D52BA18CF0C2200C9C64A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B71D52C018CF0C2200C9C64A /* PDFReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PDFReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71D52C118CF0C2200C9C64A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B71D52C918CF0C2200C9C64A /* PDFReaderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PDFReaderTests-Info.plist"; sourceTree = "<group>"; };
 		B71D52CB18CF0C2200C9C64A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B71D52CD18CF0C2200C9C64A /* PDFReaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDFReaderTests.m; sourceTree = "<group>"; };
+		B71D52D718CF0C4600C9C64A /* leaseagreement.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = leaseagreement.pdf; sourceTree = "<group>"; };
+		B78F382618FA801400994529 /* ReaderShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderShadowView.h; sourceTree = "<group>"; };
+		B78F382718FA801400994529 /* ReaderShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderShadowView.m; sourceTree = "<group>"; };
+		B78F383218FC45F300994529 /* Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Annotation.h; sourceTree = "<group>"; };
+		B78F383318FC45F300994529 /* Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Annotation.m; sourceTree = "<group>"; };
+		B78F383418FC45F300994529 /* AnnotationStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationStore.h; sourceTree = "<group>"; };
+		B78F383518FC45F300994529 /* AnnotationStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationStore.m; sourceTree = "<group>"; };
+		B78F383618FC45F300994529 /* ReaderAnnotatedPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderAnnotatedPageView.h; sourceTree = "<group>"; };
+		B78F383718FC45F300994529 /* ReaderAnnotatedPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderAnnotatedPageView.m; sourceTree = "<group>"; };
+		B78F383818FC45F300994529 /* ReaderAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderAnnotationView.h; sourceTree = "<group>"; };
+		B78F383918FC45F300994529 /* ReaderAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderAnnotationView.m; sourceTree = "<group>"; };
+		B78F383A18FC45F300994529 /* ReaderScratchPadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderScratchPadView.h; sourceTree = "<group>"; };
+		B78F383B18FC45F300994529 /* ReaderScratchPadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderScratchPadView.m; sourceTree = "<group>"; };
+		B7CA795D18EAAD6200FADC16 /* ReaderContentTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderContentTile.h; sourceTree = "<group>"; };
+		B7CA795E18EAAD6200FADC16 /* ReaderContentTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderContentTile.m; sourceTree = "<group>"; };
+		B7CA796018EAADFD00FADC16 /* ReaderPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderPageView.h; sourceTree = "<group>"; };
+		B7CA796118EAADFD00FADC16 /* ReaderPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderPageView.m; sourceTree = "<group>"; };
+		B7CA797418EAE83800FADC16 /* ReaderDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderDocument.h; sourceTree = "<group>"; };
+		B7CA797518EAE83800FADC16 /* ReaderDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderDocument.m; sourceTree = "<group>"; };
+		B7CA797718EAED0E00FADC16 /* ReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderView.h; sourceTree = "<group>"; };
+		B7CA797818EAED0E00FADC16 /* ReaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderView.m; sourceTree = "<group>"; };
+		B7CA798218F2AA0D00FADC16 /* ReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderViewController.h; sourceTree = "<group>"; };
+		B7CA798318F2AA0D00FADC16 /* ReaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,10 +144,7 @@
 			children = (
 				B71D52AE18CF0C2200C9C64A /* ReaderAppDelegate.h */,
 				B71D52AF18CF0C2200C9C64A /* ReaderAppDelegate.m */,
-				B71D52B118CF0C2200C9C64A /* Main_iPhone.storyboard */,
-				B71D52B418CF0C2200C9C64A /* Main_iPad.storyboard */,
-				B71D52B718CF0C2200C9C64A /* ReaderViewController.h */,
-				B71D52B818CF0C2200C9C64A /* ReaderViewController.m */,
+				B7CA795C18EAAD6200FADC16 /* Reader */,
 				B71D52BA18CF0C2200C9C64A /* Images.xcassets */,
 				B71D52A618CF0C2200C9C64A /* Supporting Files */,
 			);
@@ -129,6 +154,7 @@
 		B71D52A618CF0C2200C9C64A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B71D52D718CF0C4600C9C64A /* leaseagreement.pdf */,
 				B71D52A718CF0C2200C9C64A /* PDFReader-Info.plist */,
 				B71D52A818CF0C2200C9C64A /* InfoPlist.strings */,
 				B71D52AB18CF0C2200C9C64A /* main.m */,
@@ -153,6 +179,51 @@
 				B71D52CA18CF0C2200C9C64A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B78F383118FC45F300994529 /* Annotations */ = {
+			isa = PBXGroup;
+			children = (
+				B78F383218FC45F300994529 /* Annotation.h */,
+				B78F383318FC45F300994529 /* Annotation.m */,
+				B78F383418FC45F300994529 /* AnnotationStore.h */,
+				B78F383518FC45F300994529 /* AnnotationStore.m */,
+				B78F383618FC45F300994529 /* ReaderAnnotatedPageView.h */,
+				B78F383718FC45F300994529 /* ReaderAnnotatedPageView.m */,
+				B78F383818FC45F300994529 /* ReaderAnnotationView.h */,
+				B78F383918FC45F300994529 /* ReaderAnnotationView.m */,
+				B78F383A18FC45F300994529 /* ReaderScratchPadView.h */,
+				B78F383B18FC45F300994529 /* ReaderScratchPadView.m */,
+			);
+			path = Annotations;
+			sourceTree = "<group>";
+		};
+		B7CA795C18EAAD6200FADC16 /* Reader */ = {
+			isa = PBXGroup;
+			children = (
+				B7CA798218F2AA0D00FADC16 /* ReaderViewController.h */,
+				B7CA798318F2AA0D00FADC16 /* ReaderViewController.m */,
+				B7CA797718EAED0E00FADC16 /* ReaderView.h */,
+				B7CA797818EAED0E00FADC16 /* ReaderView.m */,
+				B78F382618FA801400994529 /* ReaderShadowView.h */,
+				B78F382718FA801400994529 /* ReaderShadowView.m */,
+				B7CA796018EAADFD00FADC16 /* ReaderPageView.h */,
+				B7CA796118EAADFD00FADC16 /* ReaderPageView.m */,
+				B7CA795D18EAAD6200FADC16 /* ReaderContentTile.h */,
+				B7CA795E18EAAD6200FADC16 /* ReaderContentTile.m */,
+				B78F383118FC45F300994529 /* Annotations */,
+				B7CA796618EAAE5F00FADC16 /* Support */,
+			);
+			path = Reader;
+			sourceTree = "<group>";
+		};
+		B7CA796618EAAE5F00FADC16 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				B7CA797418EAE83800FADC16 /* ReaderDocument.h */,
+				B7CA797518EAE83800FADC16 /* ReaderDocument.m */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,9 +303,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B71D52B618CF0C2200C9C64A /* Main_iPad.storyboard in Resources */,
+				B71D52D818CF0C4600C9C64A /* leaseagreement.pdf in Resources */,
 				B71D52BB18CF0C2200C9C64A /* Images.xcassets in Resources */,
-				B71D52B318CF0C2200C9C64A /* Main_iPhone.storyboard in Resources */,
 				B71D52AA18CF0C2200C9C64A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,8 +324,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B71D52B918CF0C2200C9C64A /* ReaderViewController.m in Sources */,
+				B78F384018FC45F300994529 /* ReaderScratchPadView.m in Sources */,
+				B78F382818FA801400994529 /* ReaderShadowView.m in Sources */,
+				B78F383E18FC45F300994529 /* ReaderAnnotatedPageView.m in Sources */,
+				B78F383F18FC45F300994529 /* ReaderAnnotationView.m in Sources */,
+				B7CA796218EAADFD00FADC16 /* ReaderPageView.m in Sources */,
+				B7CA798418F2AA0D00FADC16 /* ReaderViewController.m in Sources */,
+				B78F383C18FC45F300994529 /* Annotation.m in Sources */,
+				B7CA797918EAED0E00FADC16 /* ReaderView.m in Sources */,
+				B7CA797618EAE83800FADC16 /* ReaderDocument.m in Sources */,
+				B78F383D18FC45F300994529 /* AnnotationStore.m in Sources */,
 				B71D52AC18CF0C2200C9C64A /* main.m in Sources */,
+				B7CA795F18EAAD6200FADC16 /* ReaderContentTile.m in Sources */,
 				B71D52B018CF0C2200C9C64A /* ReaderAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,22 +365,6 @@
 				B71D52A918CF0C2200C9C64A /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		B71D52B118CF0C2200C9C64A /* Main_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B71D52B218CF0C2200C9C64A /* Base */,
-			);
-			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		B71D52B418CF0C2200C9C64A /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B71D52B518CF0C2200C9C64A /* Base */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		B71D52CA18CF0C2200C9C64A /* InfoPlist.strings */ = {
@@ -394,7 +458,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PDFReader/PDFReader-Prefix.pch";
 				INFOPLIST_FILE = "PDFReader/PDFReader-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -407,7 +473,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PDFReader/PDFReader-Prefix.pch";
 				INFOPLIST_FILE = "PDFReader/PDFReader-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -471,6 +539,7 @@
 				B71D52D318CF0C2200C9C64A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B71D52D418CF0C2200C9C64A /* Build configuration list for PBXNativeTarget "PDFReaderTests" */ = {
 			isa = XCConfigurationList;
@@ -479,6 +548,7 @@
 				B71D52D618CF0C2200C9C64A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

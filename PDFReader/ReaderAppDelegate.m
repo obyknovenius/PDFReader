@@ -8,11 +8,35 @@
 
 #import "ReaderAppDelegate.h"
 
+#import "ReaderViewController.h"
+
 @implementation ReaderAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
     // Override point for customization after application launch.
+    NSURL *fileURL = [[NSBundle mainBundle] URLForResource:@"leaseagreement" withExtension:@"pdf"];
+    
+    NSString *documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *newFilePath = [documentsDirectoryPath stringByAppendingPathComponent:[fileURL.path lastPathComponent]];
+    NSURL *newFileURL = [NSURL fileURLWithPath:newFilePath];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:newFilePath]) {
+        NSError *error;
+        if ([[NSFileManager defaultManager] copyItemAtURL:fileURL toURL:newFileURL error:&error]) {
+            NSLog(@"Error occured while moving file: %@", [error localizedDescription]);
+        }
+    }
+    
+    ReaderViewController *reader = [[ReaderViewController alloc] initWithURL:newFileURL];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:reader];
+    
+    self.window.rootViewController = navigationController;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 							
