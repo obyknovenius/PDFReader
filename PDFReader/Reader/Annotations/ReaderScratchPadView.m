@@ -70,6 +70,19 @@
     [self addSubview:self.textField];
 }
 
+#pragma mark - Accessors
+
+- (void)setMode:(ScratchPadViewMode)mode
+{
+    if (_mode == ScratchPadViewModeText) {
+        self.textField.hidden = YES;
+        self.textField.text = @"";
+        [self.textField resignFirstResponder];
+    }
+    
+    _mode = mode;
+}
+
 #pragma mark -
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
