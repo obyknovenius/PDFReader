@@ -26,6 +26,9 @@
 		B78F383E18FC45F300994529 /* ReaderAnnotatedPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B78F383718FC45F300994529 /* ReaderAnnotatedPageView.m */; };
 		B78F383F18FC45F300994529 /* ReaderAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B78F383918FC45F300994529 /* ReaderAnnotationView.m */; };
 		B78F384018FC45F300994529 /* ReaderScratchPadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B78F383B18FC45F300994529 /* ReaderScratchPadView.m */; };
+		B78F388918FD664600994529 /* ColorSelectionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B78F388618FD664600994529 /* ColorSelectionButton.m */; };
+		B78F388A18FD664600994529 /* ReaderRedPenSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B78F388818FD664600994529 /* ReaderRedPenSettingsViewController.m */; };
+		B78F388D18FD666A00994529 /* ReaderTextSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B78F388C18FD666A00994529 /* ReaderTextSettingsViewController.m */; };
 		B7CA795F18EAAD6200FADC16 /* ReaderContentTile.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CA795E18EAAD6200FADC16 /* ReaderContentTile.m */; };
 		B7CA796218EAADFD00FADC16 /* ReaderPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CA796118EAADFD00FADC16 /* ReaderPageView.m */; };
 		B7CA797618EAE83800FADC16 /* ReaderDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CA797518EAE83800FADC16 /* ReaderDocument.m */; };
@@ -73,6 +76,12 @@
 		B78F383918FC45F300994529 /* ReaderAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderAnnotationView.m; sourceTree = "<group>"; };
 		B78F383A18FC45F300994529 /* ReaderScratchPadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderScratchPadView.h; sourceTree = "<group>"; };
 		B78F383B18FC45F300994529 /* ReaderScratchPadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderScratchPadView.m; sourceTree = "<group>"; };
+		B78F388518FD664600994529 /* ColorSelectionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorSelectionButton.h; sourceTree = "<group>"; };
+		B78F388618FD664600994529 /* ColorSelectionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorSelectionButton.m; sourceTree = "<group>"; };
+		B78F388718FD664600994529 /* ReaderRedPenSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderRedPenSettingsViewController.h; sourceTree = "<group>"; };
+		B78F388818FD664600994529 /* ReaderRedPenSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderRedPenSettingsViewController.m; sourceTree = "<group>"; };
+		B78F388B18FD666A00994529 /* ReaderTextSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderTextSettingsViewController.h; sourceTree = "<group>"; };
+		B78F388C18FD666A00994529 /* ReaderTextSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderTextSettingsViewController.m; sourceTree = "<group>"; };
 		B7CA795D18EAAD6200FADC16 /* ReaderContentTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderContentTile.h; sourceTree = "<group>"; };
 		B7CA795E18EAAD6200FADC16 /* ReaderContentTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderContentTile.m; sourceTree = "<group>"; };
 		B7CA796018EAADFD00FADC16 /* ReaderPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderPageView.h; sourceTree = "<group>"; };
@@ -198,6 +207,19 @@
 			path = Annotations;
 			sourceTree = "<group>";
 		};
+		B78F388418FD664600994529 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B78F388518FD664600994529 /* ColorSelectionButton.h */,
+				B78F388618FD664600994529 /* ColorSelectionButton.m */,
+				B78F388718FD664600994529 /* ReaderRedPenSettingsViewController.h */,
+				B78F388818FD664600994529 /* ReaderRedPenSettingsViewController.m */,
+				B78F388B18FD666A00994529 /* ReaderTextSettingsViewController.h */,
+				B78F388C18FD666A00994529 /* ReaderTextSettingsViewController.m */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		B7CA795C18EAAD6200FADC16 /* Reader */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +234,7 @@
 				B7CA795D18EAAD6200FADC16 /* ReaderContentTile.h */,
 				B7CA795E18EAAD6200FADC16 /* ReaderContentTile.m */,
 				B78F383118FC45F300994529 /* Annotations */,
+				B78F388418FD664600994529 /* Settings */,
 				B7CA796618EAAE5F00FADC16 /* Support */,
 			);
 			path = Reader;
@@ -324,13 +347,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B78F388918FD664600994529 /* ColorSelectionButton.m in Sources */,
 				B78F384018FC45F300994529 /* ReaderScratchPadView.m in Sources */,
+				B78F388A18FD664600994529 /* ReaderRedPenSettingsViewController.m in Sources */,
 				B78F382818FA801400994529 /* ReaderShadowView.m in Sources */,
 				B78F383E18FC45F300994529 /* ReaderAnnotatedPageView.m in Sources */,
 				B78F383F18FC45F300994529 /* ReaderAnnotationView.m in Sources */,
 				B7CA796218EAADFD00FADC16 /* ReaderPageView.m in Sources */,
 				B7CA798418F2AA0D00FADC16 /* ReaderViewController.m in Sources */,
 				B78F383C18FC45F300994529 /* Annotation.m in Sources */,
+				B78F388D18FD666A00994529 /* ReaderTextSettingsViewController.m in Sources */,
 				B7CA797918EAED0E00FADC16 /* ReaderView.m in Sources */,
 				B7CA797618EAE83800FADC16 /* ReaderDocument.m in Sources */,
 				B78F383D18FC45F300994529 /* AnnotationStore.m in Sources */,

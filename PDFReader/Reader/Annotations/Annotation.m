@@ -45,13 +45,15 @@
 @synthesize text;
 @synthesize rect;
 @synthesize font;
+@synthesize color;
 
-+ (id)textAnnotationWithText:(NSString *)text inRect:(CGRect)rect withFont:(UIFont*)font
++ (id)textAnnotationWithText:(NSString *)text inRect:(CGRect)rect withFont:(UIFont*)font color:(UIColor *)color
 {
     TextAnnotation *ta = [[TextAnnotation alloc] init];
     ta.text = text;
     ta.rect = rect;
     ta.font = font;
+    ta.color = color;
     return ta;
 }
 
@@ -59,8 +61,8 @@
 {
     //Otherwise we're upside-down
     CGContextSetTextMatrix(context, CGAffineTransformMake(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f));
-    CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
-    CGContextSelectFont(context, "Arial", self.font.pointSize, kCGEncodingMacRoman);
+    CGContextSetFillColorWithColor(context, [self.color CGColor]);
+    CGContextSelectFont(context, [self.font.fontName UTF8String], self.font.pointSize, kCGEncodingMacRoman);
     CGContextShowTextAtPoint(context, self.rect.origin.x, self.rect.origin.y + self.font.pointSize,
                              [self.text cStringUsingEncoding:[NSString defaultCStringEncoding]],
                              [self.text length]);

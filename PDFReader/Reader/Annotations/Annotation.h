@@ -28,8 +28,9 @@ typedef void (^CustomAnnotationDrawingBlock)(CGContextRef);
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, assign) CGRect rect;
 @property (nonatomic, strong) UIFont *font;
+@property (nonatomic, strong) UIColor *color;
 
-+ (id)textAnnotationWithText:(NSString*)text inRect:(CGRect)rect withFont:(UIFont*)font;
++ (id)textAnnotationWithText:(NSString *)text inRect:(CGRect)rect withFont:(UIFont*)font color:(UIColor *)color;
 
 @end
 

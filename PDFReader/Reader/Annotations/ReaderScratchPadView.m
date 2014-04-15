@@ -64,6 +64,8 @@
     
     _textField = [[UITextField alloc] initWithFrame:CGRectMake(0.0f, 0.0f, TEXTFIELD_WIDTH, TEXTFILED_HEIGHT)];
     self.textField.backgroundColor = [UIColor clearColor];
+    self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textField.borderStyle = UITextBorderStyleLine;
     self.textField.hidden = YES;
     self.textField.delegate = self;
@@ -91,18 +93,21 @@
     CGPoint currentPoint = [touch locationInView:self];
     
     if (self.mode == ScratchPadViewModeText) {
+        UIFont *font = self.defaultTextFont;
+        UIColor *color = self.defaultTextColor;
+        
+        if ([self.delegate respondsToSelector:@selector(readerScratchPadTextFont:)]) {
+            font = [self.delegate readerScratchPadTextFont:self];
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(readerScratchPadTextColor:)]) {
+            color = [self.delegate readerScratchPadTextColor:self];
+        }
+        
+        self.textField.font = font;
+        self.textField.textColor = color;
+        
         if (self.textField.hidden) {
-            UIFont *font = self.defaultTextFont;
-            UIColor *color = self.defaultTextColor;
-            
-            if ([self.delegate respondsToSelector:@selector(textFont)]) {
-                font = [self.delegate textFont];
-            }
-            
-            if ([self.delegate respondsToSelector:@selector(textColor)]) {
-                color = [self.delegate textColor];
-            }
-            
             [self.textField becomeFirstResponder];
         }
         
@@ -145,11 +150,20 @@
     if (!self.didMove) {
         UITouch *touch = [touches anyObject];
         CGPoint currentPoint = [touch locationInView:self];
-        CGPathAddEllipseInRect(self.path, NULL, CGRectMake(currentPoint.x - 2.f, currentPoint.y - 2.f, 4.f, 4.f));
+        
+        CGFloat lineWidth = self.defaultLineWidth;
+        if ([self.delegate respondsToSelector:@selector(readerScratchPadLineWidth:)]) {
+            lineWidth = [self.delegate readerScratchPadLineWidth:self];
+        }
+        
+        CGPathAddEllipseInRect(self.path, NULL, CGRectMake(currentPoint.x - lineWidth / 2,
+                                                           currentPoint.y - lineWidth / 2,
+                                                           lineWidth,
+                                                           lineWidth));
     }
     
-    if ([self.delegate respondsToSelector:@selector(readerScratchPad:didDrawPath:)]) {
-        [self.delegate readerScratchPad:self didDrawPath:self.path];
+    if ([self.delegate respondsToSelector:@selector(readerScratchPad:didDrawPath:fill:)]) {
+        [self.delegate readerScratchPad:self didDrawPath:self.path fill:!self.didMove];
     }
     
     CGPathRelease(self.path);
@@ -172,13 +186,13 @@
     CGContextSetLineCap(context, kCGLineCapRound);
     
     CGFloat lineWidth = self.defaultLineWidth;
-    if ([self.delegate respondsToSelector:@selector(lineWidth)]) {
-        lineWidth = [self.delegate lineWidth];
+    if ([self.delegate respondsToSelector:@selector(readerScratchPadLineWidth:)]) {
+        lineWidth = [self.delegate readerScratchPadLineWidth:self];
     }
         
     UIColor *lineColor = self.defaultLineColor;
-    if ([self.delegate respondsToSelector:@selector(lineColor)]) {
-        lineColor = [self.delegate lineColor];
+    if ([self.delegate respondsToSelector:@selector(readerScratchPadLineColor:)]) {
+        lineColor = [self.delegate readerScratchPadLineColor:self];
     }
     
     CGContextSetLineWidth(context, lineWidth);

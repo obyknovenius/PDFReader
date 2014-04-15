@@ -7,6 +7,8 @@
 //
 
 #import "ReaderViewController.h"
+#import "ReaderRedPenSettingsViewController.h"
+#import "ReaderTextSettingsViewController.h"
 
 #import "ReaderView.h"
 #import "ReaderAnnotatedPageView.h"
@@ -17,7 +19,13 @@
 #import "ReaderDocument.h"
 #import "AnnotationStore.h"
 
-@interface ReaderViewController () <UIScrollViewDelegate, ReaderViewDataSource, ReaderScratchPadDelegate>
+typedef enum : NSUInteger {
+    AnnotationModeNone,
+    AnnotationModeText,
+    AnnotationModeRedPen,
+} AnnotationMode;
+
+@interface ReaderViewController () <UIScrollViewDelegate, UIPopoverControllerDelegate, ReaderViewDataSource, ReaderScratchPadDelegate, ReaderRedPenSettingsDelegate, ReaderTextSettingsDelegate>
 
 @property (nonatomic, strong) ReaderDocument *document;
 
@@ -26,17 +34,26 @@
 @property (nonatomic, strong) UIColor *lineColor;
 @property (nonatomic, assign) CGFloat lineWidth;
 
+@property (nonatomic, strong) NSString *fontName;
+@property (nonatomic, assign) CGFloat fontSize;
+@property (nonatomic, strong) UIColor *textColor;
+
 @property (nonatomic, strong) ReaderView *contentView;
 @property (nonatomic, strong) NSArray *scratchPadViews;
 @property (nonatomic, strong) NSArray *annotationViews;
 
+@property (nonatomic, assign) AnnotationMode annotationMode;
+
 @property (nonatomic, strong) UIBarButtonItem *redPenButton;
 @property (nonatomic, strong) UIBarButtonItem *textButton;
+@property (nonatomic, strong) UIBarButtonItem *settingsButton;
 
 @property (nonatomic, strong) UIBarButtonItem *undoButton;
 @property (nonatomic, strong) UIBarButtonItem *doneButton;
 
 @property (nonatomic, strong) UIBarButtonItem *saveButton;
+
+@property (nonatomic, strong) UIPopoverController *popover;
 
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
@@ -56,6 +73,10 @@
         
         _lineColor = [UIColor redColor];
         _lineWidth = 5.0f;
+        
+        _fontName = @"Helvetica";
+        _fontSize = 17.0f;
+        _textColor = [UIColor blackColor];
         
         _selectedButtonTintColor = [UIColor blackColor];
     }
@@ -85,6 +106,11 @@
                                                        style:UIBarButtonItemStyleBordered
                                                       target:self
                                                       action:@selector(textButtonTapped:)];
+    
+    self.settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings"]
+                                                               style:UIBarButtonItemStyleBordered
+                                                              target:self
+                                                              action:@selector(settingsButtonTapped:)];
     
     self.doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
                                                        style:UIBarButtonItemStyleBordered
@@ -133,8 +159,12 @@
 
 - (void)redPenButtonTapped:(UIBarButtonItem *)sender
 {
-    if (!self.tempAnnotationStore) {
+    if (self.annotationMode == AnnotationModeNone) {
         [self beginEditing];
+        
+        self.navigationItem.leftBarButtonItems = @[self.doneButton, self.undoButton];
+        self.navigationItem.rightBarButtonItems = @[self.redPenButton, self.textButton, self.settingsButton];
+
     }
     
     self.redPenButton.tintColor = self.selectedButtonTintColor;
@@ -145,12 +175,18 @@
     for (ReaderScratchPadView *scratchPadView in self.scratchPadViews) {
         scratchPadView.mode = ScratchPadViewModeDraw;
     }
+    
+    self.annotationMode = AnnotationModeRedPen;
 }
 
 - (void)textButtonTapped:(UIBarButtonItem *)sender
 {
-    if (!self.tempAnnotationStore) {
+    if (self.annotationMode == AnnotationModeNone) {
         [self beginEditing];
+        
+        self.navigationItem.leftBarButtonItems = @[self.doneButton, self.undoButton];
+        self.navigationItem.rightBarButtonItems = @[self.redPenButton, self.textButton, self.settingsButton];
+
     }
     
     self.textButton.tintColor = self.selectedButtonTintColor;
@@ -160,6 +196,31 @@
     
     for (ReaderScratchPadView *scratchPadView in self.scratchPadViews) {
         scratchPadView.mode = ScratchPadViewModeText;
+    }
+    
+    self.annotationMode = AnnotationModeText;
+}
+
+- (void)settingsButtonTapped:(UIBarButtonItem *)sender
+{
+    if (self.popover) {
+        [self.popover dismissPopoverAnimated:YES];
+        self.popover = nil;
+    } else {
+        if (self.annotationMode == AnnotationModeRedPen) {
+            ReaderRedPenSettingsViewController *redPenSettings = [[ReaderRedPenSettingsViewController alloc] initWithLineWidth:self.lineWidth lineColor:self.lineColor];
+            redPenSettings.delegate = self;
+            self.popover = [[UIPopoverController alloc] initWithContentViewController:redPenSettings];
+            self.popover.popoverContentSize = CGSizeMake(320.0f, 92.0f);
+        } else if (self.annotationMode == AnnotationModeText) {
+            ReaderTextSettingsViewController *textSettings = [[ReaderTextSettingsViewController alloc] initWithFontName:self.fontName fontSize:self.fontSize fontColor:self.textColor];
+            textSettings.delegate = self;
+            self.popover = [[UIPopoverController alloc] initWithContentViewController:textSettings];
+            self.popover.popoverContentSize = CGSizeMake(320.0f, 312.0f);
+        }
+        
+        self.popover.delegate = self;
+        [self.popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
 }
 
@@ -214,8 +275,6 @@
     self.scratchPadViews = [scratchPadViews copy];
     
     self.tempAnnotationStore = [[AnnotationStore alloc] initWithPageCount:(int)self.document.pageCount];
-    
-    self.navigationItem.leftBarButtonItems = @[self.doneButton, self.undoButton];
 }
 
 - (void)finishEditing
@@ -251,6 +310,8 @@
         self.navigationItem.leftBarButtonItems = nil;
     }
     self.tempAnnotationStore = nil;
+    
+    self.annotationMode = AnnotationModeNone;
 }
 
 #pragma mark - Reader view data source
@@ -286,7 +347,27 @@
 
 #pragma mark - Reader scratch pad delegate
 
-- (void)readerScratchPad:(ReaderScratchPadView *)scratchPad didDrawPath:(CGPathRef)path
+- (CGFloat)readerScratchPadLineWidth:(ReaderScratchPadView *)scratchPad
+{
+    return self.lineWidth;
+}
+
+- (UIColor *)readerScratchPadLineColor:(ReaderScratchPadView *)scratchPad
+{
+    return self.lineColor;
+}
+
+- (UIFont *)readerScratchPadTextFont:(ReaderScratchPadView *)scratchPad
+{
+    return [UIFont fontWithName:self.fontName size:self.fontSize];
+}
+
+- (UIColor *)readerScratchPadTextColor:(ReaderScratchPadView *)scratchPad
+{
+    return self.textColor;
+}
+
+- (void)readerScratchPad:(ReaderScratchPadView *)scratchPad didDrawPath:(CGPathRef)path fill:(BOOL)fill
 {
     NSUInteger index = [self.scratchPadViews indexOfObject:scratchPad];
     
@@ -295,14 +376,14 @@
     NSUInteger pageNumber = [self.contentView indexForView:shadowView] + 1;
     CGPDFPageRef page = [self.document pageAtNumber:pageNumber];
     
-    PathAnnotation *anno = [self pathAnnotationByTranslatingPath:path fromView:scratchPad toPDFPage:page];
+    PathAnnotation *anno = [self pathAnnotationByTranslatingPath:path fromView:scratchPad toPDFPage:page fill:fill];
     [self.tempAnnotationStore addAnnotation:anno toPage:(int)pageNumber];
     
     ReaderAnnotationView *annotationView = [self.annotationViews objectAtIndex:index];
     annotationView.annotations = [self.tempAnnotationStore annotationsForPage:(int)pageNumber];
 }
 
-- (PathAnnotation *)pathAnnotationByTranslatingPath:(CGPathRef)path fromView:(UIView *)view toPDFPage:(CGPDFPageRef)page
+- (PathAnnotation *)pathAnnotationByTranslatingPath:(CGPathRef)path fromView:(UIView *)view toPDFPage:(CGPDFPageRef)page fill:(BOOL)fill
 {
     CGRect pageRect = CGPDFPageGetBoxRect(page, kCGPDFMediaBox);
     CGFloat widthScale = CGRectGetWidth(pageRect) / CGRectGetWidth(view.bounds);
@@ -314,7 +395,7 @@
     PathAnnotation *pathAnnotation = [PathAnnotation pathAnnotationWithPath:transformPath
                                                                       color:[self.lineColor CGColor]
                                                                   lineWidth:self.lineWidth * widthScale
-                                                                       fill:NO];
+                                                                       fill:fill];
     CGPathRelease(transformPath);
     
     return pathAnnotation;
@@ -345,12 +426,41 @@
     CGAffineTransform scaleTransform = CGAffineTransformMakeScale(widthScale, heightScale);
     rect = CGRectApplyAffineTransform(rect, scaleTransform);
     
-    UIFont *font = [UIFont systemFontOfSize:17.0f];
+    UIFont *font = [UIFont fontWithName:self.fontName size:self.fontSize];
     font = [UIFont fontWithName:font.fontName size:font.pointSize * widthScale];
     
-    TextAnnotation *textAnnotation = [TextAnnotation textAnnotationWithText:text inRect:rect withFont:font];
+    TextAnnotation *textAnnotation = [TextAnnotation textAnnotationWithText:text inRect:rect withFont:font color:self.textColor];
     
     return textAnnotation;
+}
+
+#pragma mark - Reader red pen settings delegate
+
+- (void)readerRedPenSettingViewController:(ReaderRedPenSettingsViewController *)controller didSelectLineWidth:(CGFloat)width
+{
+    self.lineWidth = width;
+}
+
+- (void)readerRedPenSettingViewController:(ReaderRedPenSettingsViewController *)controller didSelectLineColor:(UIColor *)color
+{
+    self.lineColor = color;
+}
+
+#pragma mark - Reader text settings delegate
+
+- (void)readerTextSettingViewController:(ReaderTextSettingsViewController *)controller didSelectFontName:(NSString *)fontName
+{
+    self.fontName = fontName;
+}
+
+- (void)readerTextSettingViewController:(ReaderTextSettingsViewController *)controller didSelectFontSize:(CGFloat)fontSize
+{
+    self.fontSize = fontSize;
+}
+
+- (void)readerTextSettingViewController:(ReaderTextSettingsViewController *)controller didSelectTextColor:(UIColor *)color
+{
+    self.textColor = color;
 }
 
 #pragma mark - Scroll view delegate
@@ -367,6 +477,13 @@
         ReaderAnnotatedPageView *pageView = (ReaderAnnotatedPageView *)shadowView.containedView;
         pageView.contentScaleFactor = contentScale;
     }
+}
+
+#pragma mark - Popover controller delegate
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    self.popover = nil;
 }
 
 #pragma mark - Status bar

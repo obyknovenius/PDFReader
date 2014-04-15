@@ -52,8 +52,9 @@
     [self addAnnotation:[PathAnnotation pathAnnotationWithPath:path color:color fill:fill] toPage:page];
 }
 
-- (void)addText:(NSString*)text inRect:(CGRect)rect withFont:(UIFont*)font toPage:(int)page {
-    [self addAnnotation:[TextAnnotation textAnnotationWithText:text inRect:rect withFont:font] toPage:page];
+- (void)addText:(NSString*)text inRect:(CGRect)rect withFont:(UIFont*)font color:(UIColor *)color toPage:(int)page
+{
+    [self addAnnotation:[TextAnnotation textAnnotationWithText:text inRect:rect withFont:font color:color] toPage:page];
 }
 
 - (void) addCustomAnnotationWithBlock:(CustomAnnotationDrawingBlock)block toPage:(int)page

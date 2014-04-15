@@ -27,13 +27,13 @@ typedef enum : NSUInteger {
 
 @optional
 
-- (CGFloat)lineWidth;
-- (UIColor *)lineColor;
+- (CGFloat)readerScratchPadLineWidth:(ReaderScratchPadView *)scratchPad;
+- (UIColor *)readerScratchPadLineColor:(ReaderScratchPadView *)scratchPad;
 
-- (UIFont *)textFont;
-- (UIColor *)textColor;
+- (UIFont *)readerScratchPadTextFont:(ReaderScratchPadView *)scratchPad;
+- (UIColor *)readerScratchPadTextColor:(ReaderScratchPadView *)scratchPad;
 
-- (void)readerScratchPad:(ReaderScratchPadView *)scratchPad didDrawPath:(CGPathRef)path;
+- (void)readerScratchPad:(ReaderScratchPadView *)scratchPad didDrawPath:(CGPathRef)path fill:(BOOL)fill;
 - (void)readerScratchPad:(ReaderScratchPadView *)scratchPad didDrawText:(NSString *)text inRect:(CGRect)rect;
 
 @end
