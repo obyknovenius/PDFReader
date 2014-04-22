@@ -27,7 +27,6 @@ typedef enum : NSUInteger {
 
 - (UIView *)viewAtIndex:(NSUInteger)index;
 - (NSUInteger)indexForView:(UIView *)view;
-- (void)reloadReaderView;
 
 @end
 

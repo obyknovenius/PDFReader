@@ -212,9 +212,4 @@
     return index;
 }
 
-- (void)reloadReaderView
-{
-    
-}
-
 @end
