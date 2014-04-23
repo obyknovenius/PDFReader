@@ -250,25 +250,21 @@ typedef enum : NSUInteger {
 
 - (void)settingsButtonTapped:(UIBarButtonItem *)sender
 {
-    if (self.popover) {
-        [self.popover dismissPopoverAnimated:YES];
-        self.popover = nil;
-    } else {
-        if (self.annotationMode == AnnotationModeRedPen) {
-            ReaderRedPenSettingsViewController *redPenSettings = [[ReaderRedPenSettingsViewController alloc] initWithLineWidth:self.lineWidth lineColor:self.lineColor];
-            redPenSettings.delegate = self;
-            self.popover = [[UIPopoverController alloc] initWithContentViewController:redPenSettings];
-            self.popover.popoverContentSize = CGSizeMake(320.0f, 92.0f);
-        } else if (self.annotationMode == AnnotationModeText) {
-            ReaderTextSettingsViewController *textSettings = [[ReaderTextSettingsViewController alloc] initWithFontName:self.fontName fontSize:self.fontSize fontColor:self.textColor];
-            textSettings.delegate = self;
-            self.popover = [[UIPopoverController alloc] initWithContentViewController:textSettings];
-            self.popover.popoverContentSize = CGSizeMake(320.0f, 312.0f);
-        }
-        
-        self.popover.delegate = self;
-        [self.popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    if (self.annotationMode == AnnotationModeRedPen) {
+        ReaderRedPenSettingsViewController *redPenSettings = [[ReaderRedPenSettingsViewController alloc] initWithLineWidth:self.lineWidth lineColor:self.lineColor];
+        redPenSettings.delegate = self;
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:redPenSettings];
+        self.popover.popoverContentSize = CGSizeMake(320.0f, 92.0f);
+    } else if (self.annotationMode == AnnotationModeText) {
+        ReaderTextSettingsViewController *textSettings = [[ReaderTextSettingsViewController alloc] initWithFontName:self.fontName fontSize:self.fontSize fontColor:self.textColor];
+        textSettings.delegate = self;
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:textSettings];
+        self.popover.popoverContentSize = CGSizeMake(320.0f, 312.0f);
     }
+    
+    self.popover.delegate = self;
+    [self.popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    self.popover.passthroughViews = nil;
 }
 
 - (void)saveButtonTapped:(UIBarButtonItem *)sender
