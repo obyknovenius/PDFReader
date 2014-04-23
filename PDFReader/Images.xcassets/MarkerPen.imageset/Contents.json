@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "rename-25.png"
+      "filename" : "marker-pen.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "rename-50.png"
+      "filename" : "marker-pen@2x.png"
     }
   ],
   "info" : {

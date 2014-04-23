@@ -77,9 +77,7 @@ typedef enum : NSUInteger {
         
         _fontName = @"Helvetica";
         _fontSize = 17.0f;
-        _textColor = [UIColor blackColor];
-        
-        _selectedButtonTintColor = [UIColor blackColor];
+        _textColor = [UIColor blackColor];        
     }
     
     return self;
@@ -98,12 +96,12 @@ typedef enum : NSUInteger {
     self.contentView.delegate = self;
     [self.view addSubview:self.contentView];
     
-    self.redPenButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"RedPen"]
+    self.redPenButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MarkerPen"]
                                                          style:UIBarButtonItemStylePlain
                                                         target:self
                                                         action:@selector(redPenButtonTapped:)];
     
-    self.textButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Text"]
+    self.textButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"TextInput"]
                                                        style:UIBarButtonItemStyleBordered
                                                       target:self
                                                       action:@selector(textButtonTapped:)];
@@ -186,9 +184,8 @@ typedef enum : NSUInteger {
 {
     [self finishEditing];
     
-    UIColor *globalTint = [[[[UIApplication sharedApplication] delegate] window] tintColor];
-    self.redPenButton.tintColor = globalTint;
-    self.textButton.tintColor = globalTint;
+    self.redPenButton.image = [UIImage imageNamed:@"MarkerPen"];
+    self.textButton.image = [UIImage imageNamed:@"TextInput"];
 }
 
 - (void)undoButtonTapped:(UIBarButtonItem *)sender
@@ -206,6 +203,10 @@ typedef enum : NSUInteger {
 
 - (void)redPenButtonTapped:(UIBarButtonItem *)sender
 {
+    if (self.annotationMode == AnnotationModeRedPen) {
+        return;
+    }
+    
     if (self.annotationMode == AnnotationModeNone) {
         [self beginEditing];
         
@@ -214,10 +215,8 @@ typedef enum : NSUInteger {
 
     }
     
-    self.redPenButton.tintColor = self.selectedButtonTintColor;
-    
-    UIColor *globalTint = [[[[UIApplication sharedApplication] delegate] window] tintColor];
-    self.textButton.tintColor = globalTint;
+    self.redPenButton.image = [UIImage imageNamed:@"MarkerPenSelected"];
+    self.textButton.image = [UIImage imageNamed:@"TextInput"];
     
     for (ReaderScratchPadView *scratchPadView in self.scratchPadViews) {
         scratchPadView.mode = ScratchPadViewModeDraw;
@@ -228,6 +227,10 @@ typedef enum : NSUInteger {
 
 - (void)textButtonTapped:(UIBarButtonItem *)sender
 {
+    if (self.annotationMode == AnnotationModeText) {
+        return;
+    }
+    
     if (self.annotationMode == AnnotationModeNone) {
         [self beginEditing];
         
@@ -236,10 +239,8 @@ typedef enum : NSUInteger {
 
     }
     
-    self.textButton.tintColor = self.selectedButtonTintColor;
-    
-    UIColor *globalTint = [[[[UIApplication sharedApplication] delegate] window] tintColor];
-    self.redPenButton.tintColor = globalTint;
+    self.textButton.image = [UIImage imageNamed:@"TextInputSelected"];
+    self.redPenButton.image = [UIImage imageNamed:@"MarkerPen"];
     
     for (ReaderScratchPadView *scratchPadView in self.scratchPadViews) {
         scratchPadView.mode = ScratchPadViewModeText;

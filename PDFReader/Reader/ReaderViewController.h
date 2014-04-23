@@ -10,8 +10,6 @@
 
 @interface ReaderViewController : UIViewController
 
-@property (nonatomic, strong) UIColor *selectedButtonTintColor;
-
 - (id)initWithURL:(NSURL *)fileURL;
 
 @end
