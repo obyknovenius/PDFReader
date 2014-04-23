@@ -33,6 +33,10 @@ typedef enum : NSUInteger {
 - (UIFont *)readerScratchPadTextFont:(ReaderScratchPadView *)scratchPad;
 - (UIColor *)readerScratchPadTextColor:(ReaderScratchPadView *)scratchPad;
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField inReaderScratchPad:(ReaderScratchPadView *)scratchPad;
+- (void)textFieldDidEndEditing:(UITextField *)textField inReaderScratchPad:(ReaderScratchPadView *)scratchPad;
+- (BOOL)textFieldShouldReturn:(UITextField *)textField inReaderScratchPad:(ReaderScratchPadView *)scratchPad;
+
 - (void)readerScratchPad:(ReaderScratchPadView *)scratchPad didDrawPath:(CGPathRef)path fill:(BOOL)fill;
 - (void)readerScratchPad:(ReaderScratchPadView *)scratchPad didDrawText:(NSString *)text inRect:(CGRect)rect;
 

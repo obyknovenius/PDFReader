@@ -13,9 +13,22 @@
 
 #define TEXTFIELD_PADDING 20
 
+@interface UnscollableTextField : UITextField
+
+@end
+
+@implementation UnscollableTextField
+
+- (void)scrollTextFieldToVisible
+{
+    // Fix autoscrolling scroll view
+}
+
+@end
+
 @interface ReaderScratchPadView () <UITextFieldDelegate>
 
-@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) UnscollableTextField *textField;
 
 @property (nonatomic, assign) CGMutablePathRef path;
 @property (nonatomic, assign) BOOL didMove;
@@ -62,7 +75,7 @@
     
     _mode = ScratchPadViewModeDraw;
     
-    _textField = [[UITextField alloc] initWithFrame:CGRectMake(0.0f, 0.0f, TEXTFIELD_WIDTH, TEXTFILED_HEIGHT)];
+    _textField = [[UnscollableTextField alloc] initWithFrame:CGRectMake(0.0f, 0.0f, TEXTFIELD_WIDTH, TEXTFILED_HEIGHT)];
     self.textField.backgroundColor = [UIColor clearColor];
     self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -204,6 +217,20 @@
 
 #pragma mark - Text field delegate
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if ([self.delegate respondsToSelector:@selector(textFieldDidBeginEditing:inReaderScratchPad:)]) {
+        [self.delegate textFieldDidBeginEditing:textField inReaderScratchPad:self];
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if ([self.delegate respondsToSelector:@selector(textFieldDidEndEditing:inReaderScratchPad:)]) {
+        [self.delegate textFieldDidEndEditing:textField inReaderScratchPad:self];
+    }
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     CGRect textRect = CGRectInset(self.textField.frame, 2.0f, 4.0f);
@@ -215,6 +242,10 @@
     self.textField.hidden = YES;
     self.textField.text = @"";
     [self.textField resignFirstResponder];
+    
+    if ([self.delegate respondsToSelector:@selector(textFieldShouldReturn:inReaderScratchPad:)]) {
+        return [self.delegate textFieldShouldReturn:textField inReaderScratchPad:self];
+    }
     
     return YES;
 }

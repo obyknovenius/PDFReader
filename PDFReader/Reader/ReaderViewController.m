@@ -38,6 +38,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) CGFloat fontSize;
 @property (nonatomic, strong) UIColor *textColor;
 
+@property (nonatomic, weak) UITextField *editingTextField;
 @property (nonatomic, strong) ReaderView *contentView;
 @property (nonatomic, strong) NSArray *scratchPadViews;
 @property (nonatomic, strong) NSArray *annotationViews;
@@ -131,6 +132,52 @@ typedef enum : NSUInteger {
     
     self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     [self.view addGestureRecognizer:self.tapGestureRecognizer];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Notifications
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* userInfo = [aNotification userInfo];
+    CGRect keyboardFrame = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    keyboardFrame = [self.view convertRect:keyboardFrame fromView:self.view.window];
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0f, 0.0f, CGRectGetHeight(keyboardFrame), 0.0f);
+    self.contentView.contentInset = contentInsets;
+    self.contentView.scrollIndicatorInsets = contentInsets;
+    
+    if (self.editingTextField) {
+        CGRect textFieldFrame = [self.contentView convertRect:self.editingTextField.frame fromView:self.editingTextField.superview];
+        textFieldFrame = CGRectInset(textFieldFrame, 0.0f, -8.0f);
+        [self.contentView scrollRectToVisible:textFieldFrame animated:YES];
+    }
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.contentView.contentInset = contentInsets;
+    self.contentView.scrollIndicatorInsets = contentInsets;
 }
 
 #pragma mark - Actions
@@ -365,6 +412,16 @@ typedef enum : NSUInteger {
 - (UIColor *)readerScratchPadTextColor:(ReaderScratchPadView *)scratchPad
 {
     return self.textColor;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField inReaderScratchPad:(ReaderScratchPadView *)scratchPad
+{
+    self.editingTextField = textField;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField inReaderScratchPad:(ReaderScratchPadView *)scratchPad
+{
+    self.editingTextField = nil;
 }
 
 - (void)readerScratchPad:(ReaderScratchPadView *)scratchPad didDrawPath:(CGPathRef)path fill:(BOOL)fill
